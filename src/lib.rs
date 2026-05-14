@@ -24,16 +24,28 @@ impl PostfixNotationCalculator {
             return;
         };
 
-        assert_eq!(numbers.len(), 2);
         self.push(numbers[0] - numbers[1])
     }
 
     pub fn multiply(&mut self) {
-        todo!()
+        let Some(numbers) = self.take(2) else {
+            return;
+        };
+
+        self.push(numbers[0] * numbers[1])
     }
 
-    pub fn divide(&mut self) -> Result<(), String> {
-        todo!()
+    pub fn divide(&mut self) -> anyhow::Result<()> {
+        let Some(numbers) = self.take(2) else {
+            return Ok(());
+        };
+
+        let res = numbers[0]
+            .checked_div(numbers[1])
+            .ok_or(anyhow::anyhow!(""))?;
+
+        self.push(res);
+        Ok(())
     }
 
     fn take(&mut self, n: usize) -> Option<Vec<i32>> {
