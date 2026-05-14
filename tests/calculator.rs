@@ -26,7 +26,7 @@ fn multiply_numbers(world: &mut CalcWorld) {
     world.calc.multiply();
 }
 
-#[then(regex = r"the calculator should hold (\d+) numbers")]
+#[then(regex = r"the calculator should hold (\d+) numbers?")]
 fn check_length(world: &mut CalcWorld, expected: usize) {
     assert_eq!(world.calc.stack().len(), expected);
 }
