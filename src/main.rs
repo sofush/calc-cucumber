@@ -3,7 +3,9 @@ use std::io::Write as _;
 
 fn main() -> anyhow::Result<()> {
     loop {
-        do_calculation()?;
+        if let Err(e) = do_calculation() {
+            println!("Error: {e}");
+        }
     }
 }
 
