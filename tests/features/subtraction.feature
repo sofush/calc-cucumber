@@ -1,3 +1,4 @@
+@subtraction
 Feature: Subtraction
 
 	Scenario: Subtract zero numbers

@@ -1,3 +1,4 @@
+@addition
 Feature: Addition
 
 	Scenario: Add zero numbers
