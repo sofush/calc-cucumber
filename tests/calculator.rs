@@ -6,7 +6,7 @@ struct CalcWorld {
     calc: PostfixNotationCalculator,
 }
 
-#[given(regex = r"the number -?(\d+)")]
+#[given(regex = r"the number (-?\d+)")]
 fn given_the_number(world: &mut CalcWorld, n: i32) {
     world.calc.push(n);
 }
@@ -31,7 +31,7 @@ fn check_length(world: &mut CalcWorld, expected: usize) {
     assert_eq!(world.calc.stack().len(), expected);
 }
 
-#[then(regex = r"the result should be -?(\d+)")]
+#[then(regex = r"the result should be (-?\d+)")]
 fn check_result(world: &mut CalcWorld, expected: i32) {
     let top_of_stack = world.calc.stack().last();
     assert_eq!(top_of_stack, Some(&expected));
