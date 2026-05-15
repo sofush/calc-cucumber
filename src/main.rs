@@ -29,9 +29,9 @@ fn do_calculation() -> anyhow::Result<()> {
         1 => println!("{}", numbers.last().unwrap()),
         n => {
             print!("[");
-            numbers.iter().take(n - 1).for_each(|x| print!("{x},"));
+            numbers.iter().take(n - 1).for_each(|x| print!("{x}, "));
             print!("{}", numbers.last().unwrap());
-            print!("]");
+            println!("]");
         }
     }
 
