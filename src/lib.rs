@@ -1,4 +1,6 @@
-#[allow(unused)]
+pub mod interpreter;
+pub mod parser;
+
 #[derive(Debug, Default, Clone)]
 pub struct PostfixNotationCalculator {
     stack: Vec<i32>,
@@ -42,7 +44,7 @@ impl PostfixNotationCalculator {
 
         let res = numbers[0]
             .checked_div(numbers[1])
-            .ok_or(anyhow::anyhow!(""))?;
+            .ok_or(anyhow::anyhow!("Division by zero."))?;
 
         self.push(res);
         Ok(())
