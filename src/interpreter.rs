@@ -1,7 +1,7 @@
 use crate::{PostfixNotationCalculator, parser::Token};
 use anyhow::bail;
 
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct Interpreter {
     calc: PostfixNotationCalculator,
 }
