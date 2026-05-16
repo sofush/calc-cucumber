@@ -1,3 +1,4 @@
+@calculator
 @multiplication
 Feature: Multiplication
 

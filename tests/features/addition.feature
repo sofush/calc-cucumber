@@ -1,3 +1,4 @@
+@calculator
 @addition
 Feature: Addition
 

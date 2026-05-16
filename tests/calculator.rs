@@ -1,6 +1,6 @@
 use assert_matches::assert_matches;
 use calc::PostfixNotationCalculator;
-use cucumber::{World, given, then, when};
+use cucumber::{World, gherkin::Feature, given, then, when};
 
 #[derive(Debug, Default, World)]
 struct CalcWorld {
@@ -57,5 +57,8 @@ fn check_error(world: &mut CalcWorld) {
 
 #[tokio::main]
 async fn main() {
-    CalcWorld::run("tests/features").await;
+    CalcWorld::filter_run("tests/features", |feature: &Feature, _, _| {
+        feature.tags.iter().any(|tag| tag == "calculator")
+    })
+    .await;
 }

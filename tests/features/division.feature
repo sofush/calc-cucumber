@@ -1,3 +1,4 @@
+@calculator
 @division
 Feature: Division
 

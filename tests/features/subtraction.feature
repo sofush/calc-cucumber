@@ -1,3 +1,4 @@
+@calculator
 @subtraction
 Feature: Subtraction
 
