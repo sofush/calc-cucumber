@@ -1,3 +1,6 @@
+use std::str::FromStr;
+
+#[derive(Debug, PartialEq, Eq)]
 pub enum Token {
     Number(i32),
     Add,
@@ -5,6 +8,34 @@ pub enum Token {
     Divide,
     Multiply,
     Unknown(String),
+}
+
+impl FromStr for Token {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let token = match s {
+            "Add" => Token::Add,
+            "Subtract" => Token::Subtract,
+            "Multiply" => Token::Multiply,
+            "Divide" => Token::Divide,
+
+            token if token.starts_with("Number(") && token.ends_with(')') => {
+                let inner = &token[7..token.len() - 1];
+                let num = inner.parse().unwrap();
+
+                Token::Number(num)
+            }
+
+            token if token.starts_with("Unknown(") && token.ends_with(')') => {
+                let inner = &token[8..token.len() - 1];
+                Token::Unknown(inner.to_string())
+            }
+            _ => return Err("Unknown expected token format: {s}"),
+        };
+
+        Ok(token)
+    }
 }
 
 pub fn parse(s: &str) -> Vec<Token> {
