@@ -10,7 +10,7 @@ Feature: Addition
 	Scenario: Add one number
 		Given the number <x>
 		When I do addition
-		Then the calculator should hold 1 numbers
+		Then the calculator should hold 1 number
 		Then the result should be <x>
 
 		Examples:
@@ -36,7 +36,7 @@ Feature: Addition
 		Given the number <y>
 		Given the number <z>
 		When I do addition
-		Then the calculator should hold 2 number
+		Then the calculator should hold 2 numbers
 		Then the result should be <first>
 		When I do addition
 		Then the calculator should hold 1 number
