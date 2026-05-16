@@ -11,7 +11,7 @@ pub enum Token {
 }
 
 impl FromStr for Token {
-    type Err = &'static str;
+    type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let token = match s {
@@ -31,7 +31,7 @@ impl FromStr for Token {
                 let inner = &token[8..token.len() - 1];
                 Token::Unknown(inner.to_string())
             }
-            _ => return Err("Unknown expected token format: {s}"),
+            _ => return Err(format!("Unknown expected token format: {s}")),
         };
 
         Ok(token)
