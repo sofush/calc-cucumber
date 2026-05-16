@@ -1,6 +1,5 @@
-use anyhow::bail;
-
 use crate::{PostfixNotationCalculator, parser::Token};
+use anyhow::bail;
 
 #[derive(Default)]
 pub struct Interpreter {
