@@ -23,3 +23,7 @@ harness = false
 [[test]]
 name = "interpreter"
 harness = false
+
+[[test]]
+name = "integration"
+harness = false
