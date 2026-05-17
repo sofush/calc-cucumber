@@ -1,5 +1,6 @@
+use assert_matches::assert_matches;
 use calc::interpreter::Interpreter;
-use cucumber::{World, gherkin::Feature, when};
+use cucumber::{World, gherkin::Feature, then, when};
 
 #[derive(Debug, Default, World)]
 struct IntegrationWorld {
@@ -13,18 +14,42 @@ fn provide_input(world: &mut IntegrationWorld, input: String) {
 
     for token in &tokens {
         let res = world.interpreter.interpret(token);
-        world.result = world.result.take().or(Some(res));
+
+        if res.is_err() {
+            world.result = Some(res);
+        }
     }
 }
 
-#[then(regex = "the result should be ")]
-fn provide_input(world: &mut IntegrationWorld, input: String) {
-    let tokens = calc::parser::parse(&input);
+#[then(regex = r"stack result should be \[(.*)\]")]
+fn check_stack(world: &mut IntegrationWorld, expected: String) {
+    let expected: Vec<i32> = if expected.trim().is_empty() {
+        vec![]
+    } else {
+        expected
+            .split(',')
+            .map(|s| s.trim().parse::<i32>().unwrap())
+            .collect()
+    };
 
-    for token in &tokens {
-        let res = world.interpreter.interpret(token);
-        world.result = world.result.take().or(Some(res));
-    }
+    assert_eq!(world.interpreter.result(), expected);
+}
+
+#[then(regex = r#"the error message should contain "(.*)""#)]
+fn check_for_error_message(world: &mut IntegrationWorld, expected: String) {
+    assert_matches!(world.result, Some(Err(_)));
+
+    let error = world
+        .result
+        .as_ref()
+        .expect("Expected a result")
+        .as_ref()
+        .expect_err("Value should be an error");
+
+    assert!(
+        error.to_string().contains(&expected),
+        "Expected error message to contain `{expected}`, got `{error}`"
+    );
 }
 
 #[tokio::main]
