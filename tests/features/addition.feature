@@ -27,9 +27,24 @@ Feature: Addition
 		Then the result should be <result>
 
 		Examples:
-			| x  | y  | result |
-			| 1  | 1  | 2      |
-			| -1 | -1 | -2     |
+			| x           | y           | result                  |
+			# Max og min-værdier
+			| 2147483647  | 0           | 2147483647              |
+			| -2147483648 | 0           | -2147483648             |
+			# Addition op til max og min-værdier
+			| 2147483646  | 1           | 2147483647              |
+			| -2147483647 | -1          | -2147483648             |
+			# Overflow og underflow
+			| 2147483647  | 1           | 2147483648              |
+			| -2147483648 | -1          | -2147483649             |
+			# Specielle værdier
+			| 0           | 0           | 0                       |
+
+	Scenario: Add two numbers
+		Given the number 10.5
+		Given the number 10.5
+		When I do addition
+		Then there should be an error
 
 	Scenario: Add three numbers
 		Given the number <x>
