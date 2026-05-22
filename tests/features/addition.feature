@@ -40,7 +40,7 @@ Feature: Addition
 			# Specielle værdier
 			| 0           | 0           | 0                       |
 
-	Scenario: Add two numbers
+	Scenario: Add two decimal numbers
 		Given the number 10.5
 		Given the number 10.5
 		When I do addition
