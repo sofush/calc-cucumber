@@ -8,7 +8,7 @@ struct CalcWorld {
     result: Option<anyhow::Result<()>>,
 }
 
-#[given(regex = r"the number (-?\d+)")]
+#[given(expr = "the number {float}")]
 fn given_the_number(world: &mut CalcWorld, n: i32) {
     world.calc.push(n);
 }
